@@ -1,0 +1,5 @@
+.DS_Store
+node_modules/
+
+# wrangler のローカルキャッシュ。Cloudflare のアカウントID・メールアドレスが入る
+.wrangler/

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ワカケホンセイインコカフェ | 林試の森公園のオープンカフェ</title>
+<meta name="description" content="ワカケホンセイインコカフェは、東京都品川区・林試の森公園内にあるオープンエアのカフェです。公園にすむ野生のワカケホンセイインコが、テラス席にふらりと遊びに来ます。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#1f5c3f">
+<style>
+  :root{
+    --green-dark:#1f5c3f;
+    --green:#2f8f5b;
+    --green-light:#e7f4ea;
+    --cream:#fbf6ea;
+    --red:#e2604a;
+    --red-dark:#c14a36;
+    --ink:#2b2b26;
+    --ink-soft:#5a5a4f;
+    --gold:#e0a83c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.8;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .container{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(251,246,234,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(31,92,63,0.12);
+  }
+  .nav-wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;max-width:1100px;margin:0 auto;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-weight:700;font-size:1.05rem;color:var(--green-dark);
+    letter-spacing:0.02em;
+  }
+  .logo .mark{
+    width:38px;height:38px;flex-shrink:0;
+  }
+  nav ul{display:flex;gap:28px;list-style:none;}
+  nav a{
+    font-size:0.92rem;font-weight:600;color:var(--ink-soft);
+    position:relative;padding-bottom:4px;
+  }
+  nav a:hover{color:var(--green-dark);}
+  .nav-toggle{display:none;background:none;border:none;font-size:1.5rem;color:var(--green-dark);cursor:pointer;}
+
+  @media (max-width:760px){
+    nav ul{
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;background:var(--cream);
+      padding:16px 24px;gap:16px;
+      border-bottom:1px solid rgba(31,92,63,0.12);
+      display:none;
+    }
+    nav ul.open{display:flex;}
+    .nav-toggle{display:block;}
+  }
+
+  /* Hero */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex;align-items:flex-end;
+    padding:150px 24px 64px;
+    color:#fff;
+    overflow:hidden;
+  }
+  .hero-slides{position:absolute;inset:0;z-index:0;}
+  .hero-slide{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center 42%;
+    background-repeat:no-repeat;
+    opacity:0;transition:opacity 1.6s ease-in-out;
+    will-change:opacity;
+  }
+  .hero-slide.active{opacity:1;}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg, rgba(10,32,20,0.30) 0%, rgba(10,32,20,0.12) 32%, rgba(10,32,20,0.55) 70%, rgba(10,32,20,0.9) 100%);
+  }
+  .hero-inner{
+    position:relative;z-index:2;
+    max-width:720px;margin:0 auto;text-align:center;
+  }
+  @media (prefers-reduced-motion:reduce){
+    .hero-slide{transition:none;}
+  }
+  .eyebrow{
+    display:inline-block;font-size:0.8rem;font-weight:700;letter-spacing:0.12em;
+    color:var(--green-dark);background:var(--green-light);
+    padding:6px 14px;border-radius:100px;margin-bottom:18px;
+  }
+  .hero .eyebrow{background:rgba(255,255,255,0.18);color:#fff;backdrop-filter:blur(2px);}
+  .hero h1{
+    font-size:clamp(2rem,4.5vw,3.1rem);
+    color:#fff;
+    font-weight:800;
+    line-height:1.35;
+    margin-bottom:20px;
+    text-shadow:0 2px 20px rgba(0,0,0,0.25);
+  }
+  .hero h1 span{color:var(--gold);}
+  .hero p.lead{
+    font-size:1.02rem;color:rgba(255,255,255,0.92);max-width:46ch;margin:0 auto 32px;
+  }
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 28px;border-radius:100px;font-weight:700;font-size:0.95rem;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{
+    background:var(--green-dark);color:#fff;
+    box-shadow:0 8px 20px rgba(31,92,63,0.25);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(31,92,63,0.32);}
+  .btn-outline{
+    border:2px solid #fff;color:#fff;
+  }
+  .btn-outline:hover{background:#fff;color:var(--green-dark);}
+
+  /* Panorama band */
+  .panorama-band{
+    position:relative;height:220px;overflow:hidden;
+  }
+  .panorama-band img{
+    width:100%;height:100%;object-fit:cover;object-position:center 45%;
+  }
+  .panorama-band .cap{
+    position:absolute;bottom:14px;right:24px;
+    color:#fff;font-size:0.78rem;font-weight:600;
+    background:rgba(20,50,35,0.55);padding:6px 14px;border-radius:100px;
+    backdrop-filter:blur(2px);
+  }
+  @media (max-width:700px){.panorama-band{height:130px;} .panorama-band .cap{right:12px;font-size:0.68rem;}}
+
+  /* Section generic */
+  section{padding:88px 24px;}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 56px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{
+    font-size:clamp(1.6rem,3vw,2.2rem);
+    color:var(--green-dark);font-weight:800;margin-bottom:14px;
+  }
+  .section-head p{color:var(--ink-soft);font-size:0.98rem;}
+
+  /* Concept */
+  .concept-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  }
+  .concept-card{
+    background:#fff;border-radius:20px;padding:36px 28px;
+    box-shadow:0 10px 30px rgba(31,92,63,0.08);
+    text-align:center;
+  }
+  .concept-card .icon{
+    width:64px;height:64px;margin:0 auto 20px;
+    background:var(--green-light);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.7rem;
+  }
+  .concept-card h3{color:var(--green-dark);font-size:1.08rem;margin-bottom:10px;font-weight:700;}
+  .concept-card p{color:var(--ink-soft);font-size:0.9rem;}
+
+  @media (max-width:820px){.concept-grid{grid-template-columns:1fr;}}
+
+  /* Scenery gallery */
+  .scenery-section{background:var(--green-light);}
+  .gallery-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:170px;gap:16px;
+  }
+  .gallery-item{
+    position:relative;border-radius:16px;overflow:hidden;
+    box-shadow:0 10px 24px rgba(31,92,63,0.14);
+  }
+  .gallery-item img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .5s ease;
+  }
+  .gallery-item:hover img{transform:scale(1.07);}
+  .gallery-item.big{grid-column:span 2;grid-row:span 2;}
+  .gallery-item figcaption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:14px 16px 10px;color:#fff;font-size:0.82rem;font-weight:600;
+    background:linear-gradient(0deg, rgba(10,32,20,0.65), transparent);
+  }
+
+  @media (max-width:820px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:110px;}
+    .gallery-item.big{grid-column:span 2;grid-row:span 2;}
+  }
+
+  /* Birds */
+  .birds-section{
+    position:relative;
+    background:
+      linear-gradient(180deg, rgba(20,50,35,0.93), rgba(20,50,35,0.96)),
+      url('images/meiji-canopy.jpg') center/cover no-repeat;
+    color:#fff;
+  }
+  .birds-section .section-head h2{color:#fff;}
+  .birds-section .section-head .eyebrow{background:rgba(255,255,255,0.14);color:#fff;}
+  .birds-section .section-head p{color:rgba(255,255,255,0.78);}
+  .birds-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  }
+  .bird-card{
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:18px;overflow:hidden;text-align:center;
+  }
+  .bird-photo{
+    width:100%;height:170px;object-fit:cover;display:block;
+    border-bottom:3px solid var(--gold);
+  }
+  .bird-card .body{padding:20px 20px 26px;}
+  .bird-card h3{font-size:1.05rem;margin-bottom:4px;font-weight:700;}
+  .bird-card .tag{
+    display:inline-block;font-size:0.72rem;color:var(--gold);
+    letter-spacing:0.06em;margin-bottom:12px;font-weight:700;
+  }
+  .bird-card p{font-size:0.85rem;color:rgba(255,255,255,0.78);}
+
+  @media (max-width:900px){.birds-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:480px){.birds-grid{grid-template-columns:1fr;} .bird-photo{height:220px;}}
+
+  /* Feature band — flying parakeet */
+  .feature-band{
+    position:relative;min-height:520px;
+    display:flex;align-items:center;
+    background:
+      linear-gradient(90deg, rgba(10,32,20,0.82) 0%, rgba(10,32,20,0.55) 45%, rgba(10,32,20,0.15) 100%),
+      url('images/parakeet-flight.jpg') center/cover no-repeat;
+    color:#fff;padding:80px 24px;
+  }
+  .feature-band .feature-inner{max-width:1100px;margin:0 auto;width:100%;}
+  .feature-band .feature-text{max-width:30ch;}
+  .feature-band .eyebrow{background:rgba(255,255,255,0.18);color:#fff;margin-bottom:18px;}
+  .feature-band h2{
+    font-size:clamp(1.7rem,3.2vw,2.4rem);font-weight:800;line-height:1.4;
+    margin-bottom:16px;text-shadow:0 2px 20px rgba(0,0,0,0.3);
+  }
+  .feature-band h2 span{color:var(--gold);}
+  .feature-band p{font-size:0.98rem;color:rgba(255,255,255,0.9);}
+  @media (max-width:640px){
+    .feature-band{min-height:440px;
+      background:
+        linear-gradient(180deg, rgba(10,32,20,0.45) 0%, rgba(10,32,20,0.82) 100%),
+        url('images/parakeet-flight.jpg') center/cover no-repeat;
+    }
+    .feature-band .feature-text{max-width:none;}
+  }
+
+  /* Menu */
+  .menu-photos{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+    max-width:900px;margin:0 auto 56px;
+  }
+  .menu-photo{
+    position:relative;border-radius:16px;overflow:hidden;
+    box-shadow:0 10px 26px rgba(31,92,63,0.12);
+  }
+  .menu-photo img{width:100%;height:230px;object-fit:cover;display:block;transition:transform .5s ease;}
+  .menu-photo:hover img{transform:scale(1.06);}
+  .menu-photo figcaption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:16px 16px 12px;color:#fff;font-size:0.9rem;font-weight:700;
+    background:linear-gradient(0deg, rgba(10,32,20,0.7), transparent);
+  }
+  @media (max-width:700px){
+    .menu-photos{grid-template-columns:1fr;}
+    .menu-photo img{height:200px;}
+  }
+  .menu-tabs-note{text-align:center;color:var(--ink-soft);font-size:0.85rem;margin-bottom:0;margin-top:40px;}
+  .menu-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:20px 40px;
+    max-width:820px;margin:0 auto;
+  }
+  .menu-item{
+    display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+    padding:16px 0;border-bottom:1px dashed rgba(31,92,63,0.25);
+  }
+  .menu-item .name{font-weight:700;color:var(--ink);font-size:0.98rem;}
+  .menu-item .desc{display:block;font-weight:400;font-size:0.8rem;color:var(--ink-soft);margin-top:3px;}
+  .menu-item .price{font-weight:700;color:var(--green-dark);white-space:nowrap;font-size:0.95rem;}
+
+  @media (max-width:700px){.menu-grid{grid-template-columns:1fr;}}
+
+  /* Guidelines */
+  .guide-section{background:var(--green-light);}
+  .guide-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+    max-width:960px;margin:0 auto;
+  }
+  .guide-item{
+    background:#fff;border-radius:16px;padding:26px 18px;text-align:center;
+    box-shadow:0 6px 18px rgba(31,92,63,0.06);
+  }
+  .guide-item .num{
+    width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:0.9rem;margin:0 auto 14px;
+  }
+  .guide-item p{font-size:0.85rem;color:var(--ink-soft);}
+  .guide-item strong{display:block;color:var(--ink);font-size:0.95rem;margin-bottom:6px;}
+
+  @media (max-width:820px){.guide-grid{grid-template-columns:repeat(2,1fr);}}
+
+  /* Access */
+  .access-wrap{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;
+    max-width:1000px;margin:0 auto;align-items:start;
+  }
+  .info-card{
+    background:#fff;border-radius:20px;padding:36px;
+    box-shadow:0 10px 30px rgba(31,92,63,0.08);
+  }
+  .info-card h3{color:var(--green-dark);font-size:1.15rem;margin-bottom:20px;font-weight:800;}
+  .info-row{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(31,92,63,0.1);}
+  .info-row:last-child{border-bottom:none;}
+  .info-row .label{width:88px;flex-shrink:0;font-weight:700;color:var(--ink-soft);font-size:0.85rem;}
+  .info-row .value{font-size:0.92rem;color:var(--ink);}
+  .map-box{
+    border-radius:20px;overflow:hidden;height:100%;min-height:320px;
+    box-shadow:0 10px 30px rgba(31,92,63,0.12);
+    display:flex;flex-direction:column;
+  }
+  .map-box iframe{
+    width:100%;flex:1;min-height:280px;border:0;display:block;
+  }
+  .map-box .map-note{
+    background:#fff;padding:12px 16px;font-size:0.72rem;color:var(--ink-soft);
+    border-top:1px solid rgba(31,92,63,0.1);line-height:1.7;
+  }
+  .map-box .map-note a{color:var(--green-dark);font-weight:700;white-space:nowrap;}
+  .map-box .map-note a:hover{text-decoration:underline;}
+
+  @media (max-width:820px){.access-wrap{grid-template-columns:1fr;}}
+
+  /* Footer */
+  footer{
+    background:var(--ink);color:rgba(255,255,255,0.7);
+    padding:48px 24px 28px;
+  }
+  .footer-inner{
+    max-width:1100px;margin:0 auto;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;
+    padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .footer-logo{color:#fff;font-weight:700;font-size:1.05rem;margin-bottom:8px;}
+  .footer-sns{display:flex;gap:14px;}
+  .footer-sns a{
+    width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.1);
+    display:flex;align-items:center;justify-content:center;font-size:1rem;
+  }
+  .footer-sns a:hover{background:var(--green);}
+  .photo-credits{
+    max-width:1100px;margin:20px auto 0;font-size:0.7rem;color:rgba(255,255,255,0.45);
+    line-height:1.9;
+  }
+  .photo-credits a{color:rgba(255,255,255,0.6);}
+  .footer-bottom{max-width:1100px;margin:16px auto 0;font-size:0.78rem;text-align:center;}
+  .site-disclaimer{
+    max-width:1100px;margin:14px auto 0;
+    font-size:0.68rem;line-height:1.8;text-align:center;
+    color:rgba(255,255,255,0.32);
+  }
+
+  .fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a class="logo" href="#top">
+      <svg class="mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="32" fill="#1f5c3f"/>
+        <path d="M20 38c0-10 6-19 15-19 7 0 11 5 11 11 0 8-7 13-14 13-3 0-6-1-8-2z" fill="#3fa16b"/>
+        <circle cx="39" cy="26" r="2.4" fill="#fff"/>
+        <circle cx="39.8" cy="26" r="1.1" fill="#1f1f1f"/>
+        <path d="M46 28l7-2-5 6z" fill="#e2604a"/>
+      </svg>
+      ワカケホンセイインコカフェ
+    </a>
+    <button class="nav-toggle" aria-label="メニュー" id="navToggle">&#9776;</button>
+    <nav>
+      <ul id="navList">
+        <li><a href="#concept">コンセプト</a></li>
+        <li><a href="#scenery">周辺環境</a></li>
+        <li><a href="#birds">インコ紹介</a></li>
+        <li><a href="#menu">メニュー</a></li>
+        <li><a href="#guide">ご利用案内</a></li>
+        <li><a href="#access">アクセス</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide active" style="background-image:url('images/parakeet-flight.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/parakeet-branch.jpg');background-position:center 20%;"></div>
+    <div class="hero-slide" style="background-image:url('images/parakeet-flowers.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/parakeet-green.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/parakeet-tree.jpg')"></div>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">OPEN-AIR CAFE IN RINSHI NO MORI PARK</span>
+      <h1>公園の木立から、<br><span>インコ</span>が遊びに来るカフェ。</h1>
+      <p class="lead">ワカケホンセイインコカフェは、林試の森公園の中にあるオープンエアのカフェです。壁のないテラス席でコーヒーを飲んでいると、公園にすむ野生のワカケホンセイインコたちがふらりと木々から舞い降りてきます。</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#access">ご予約・アクセス</a>
+        <a class="btn btn-outline" href="#menu">メニューを見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="panorama-band">
+  <img src="images/hero-yoyogi.jpg" alt="木々に囲まれた広い公園のパノラマ風景" loading="lazy">
+  <span class="cap">木々に囲まれた公園のイメージ</span>
+</div>
+
+<section id="concept">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">CONCEPT</span>
+      <h2>公園と一体の、オープンエアカフェ</h2>
+      <p>ここは「見る」カフェではなく、公園の一部にあるカフェです。囲いのないテラス席だから、木々の様子も、遊びに来るインコたちも、すぐそばに感じられます。</p>
+    </div>
+    <div class="concept-grid">
+      <div class="concept-card fade-in">
+        <div class="icon">🌳</div>
+        <h3>壁のないテラス席</h3>
+        <p>林試の森公園の木立に囲まれたオープンテラス。天気のいい日は公園の風と鳥の声に包まれて過ごせます。</p>
+      </div>
+      <div class="concept-card fade-in">
+        <div class="icon">🦜</div>
+        <h3>野生のインコが遊びに来る</h3>
+        <p>このあたりには野生化したワカケホンセイインコの群れがすみついています。約束はできませんが、テラス席や木の枝に姿を見せてくれることも。</p>
+      </div>
+      <div class="concept-card fade-in">
+        <div class="icon">☕</div>
+        <h3>公園さんぽの合間に</h3>
+        <p>厳選豆のコーヒーと季節のスイーツをご用意。散歩や公園遊びの帰りに、ふらっと立ち寄れる一杯を。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scenery-section" id="scenery">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">RINSHI NO MORI PARK</span>
+      <h2>旧・林業試験場の木々に包まれて</h2>
+      <p>当店がある林試の森公園は、かつての林業試験場の跡地。都内でも珍しい大木や珍しい樹種が多く、都会にいながら深呼吸したくなる景色がひろがります。（写真は雰囲気をお伝えするイメージです）</p>
+    </div>
+    <div class="gallery-grid fade-in">
+      <figure class="gallery-item big">
+        <img src="images/yoyogi-path.jpg" alt="噴水と並木道、奥にビル群が見える広い公園" loading="lazy">
+        <figcaption>並木道と噴水のある広場</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="images/gyoen-trees.jpg" alt="紅葉が色づく木々の下を歩く人々" loading="lazy">
+        <figcaption>色づく木立の散策路</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="images/meiji-canopy.jpg" alt="見上げるような木々の枝葉のクローズアップ" loading="lazy">
+        <figcaption>見上げるほどの木々の枝葉</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="images/autumn-trees-dusk.jpg" alt="夕暮れに染まる公園の大木と池" loading="lazy">
+        <figcaption>夕暮れどきの大木</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="images/gyoen-summer.jpg" alt="緑深い公園の木立" loading="lazy">
+        <figcaption>深い緑に包まれる木立</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="feature-band">
+  <div class="feature-inner fade-in">
+    <div class="feature-text">
+      <span class="eyebrow">THEY COME TO YOU</span>
+      <h2>木々からふいに、<br><span>舞い降りて</span>。</h2>
+      <p>この公園には、野生化したワカケホンセイインコの群れがすみついています。運がよければ、コーヒーを飲んでいるテラスのすぐそばまで舞い降りてくれることも。</p>
+    </div>
+  </div>
+</section>
+
+<section class="birds-section" id="birds">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">OUR REGULAR VISITORS</span>
+      <h2>よく遊びに来る、常連のインコたち</h2>
+      <p>飼っているわけではなく、公園にすむ野生の子たち。スタッフや常連さんが見分けやすいように、勝手にニックネームを付けています。</p>
+    </div>
+    <div class="birds-grid">
+      <div class="bird-card fade-in">
+        <img class="bird-photo" style="object-position:center 18%;" src="images/parakeet-branch.jpg" alt="枝にとまり夕日を浴びるワカケホンセイインコ" loading="lazy">
+        <div class="body">
+          <h3>ミドリ</h3>
+          <span class="tag">毎朝の常連</span>
+          <p>開店直後に真っ先に現れる一羽。よく通る鳴き声で来店を知らせてくれます。</p>
+        </div>
+      </div>
+      <div class="bird-card fade-in">
+        <img class="bird-photo" src="images/parakeet-flowers.jpg" alt="花の咲く枝にとまるワカケホンセイインコ" loading="lazy">
+        <div class="body">
+          <h3>ソラ</h3>
+          <span class="tag">好奇心旺盛</span>
+          <p>新しいお客様が気になるようで、テラス席の近くまで様子を見に来ます。</p>
+        </div>
+      </div>
+      <div class="bird-card fade-in">
+        <img class="bird-photo" src="images/parakeet-green.jpg" alt="緑の葉を背に枝にとまるワカケホンセイインコ" loading="lazy">
+        <div class="body">
+          <h3>ハク</h3>
+          <span class="tag">群れのボス格</span>
+          <p>一番大きな声で鳴く古株。他の子より高い枝から見下ろしていることが多いです。</p>
+        </div>
+      </div>
+      <div class="bird-card fade-in">
+        <img class="bird-photo" src="images/parakeet-tree.jpg" alt="木の幹の陰から顔を出すワカケホンセイインコ" loading="lazy">
+        <div class="body">
+          <h3>モモ</h3>
+          <span class="tag">人見知り</span>
+          <p>まだ警戒心が強く、少し離れた木の上から様子をうかがっています。そっと見守ってあげてください。</p>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.82rem;color:rgba(255,255,255,0.65);margin-top:32px;">
+      ※ 野生の鳥のため、必ず会えるわけではありません。天候や季節によって姿を見せない日もあります。
+    </p>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">MENU</span>
+      <h2>お食事・お飲み物</h2>
+      <p>屋外のオープンテラス席のため、雨天時は営業内容が変わる場合があります。</p>
+    </div>
+    <div class="menu-photos fade-in">
+      <figure class="menu-photo">
+        <img src="images/menu-latte.jpg" alt="ラテアートの入ったカフェラテ" loading="lazy">
+        <figcaption>インコラテ</figcaption>
+      </figure>
+      <figure class="menu-photo">
+        <img src="images/menu-matcharoll.jpg" alt="皿にのった抹茶のロールケーキ" loading="lazy">
+        <figcaption>グリーンティーロール</figcaption>
+      </figure>
+      <figure class="menu-photo">
+        <img src="images/menu-cookies.jpg" alt="焼きたてのクッキー" loading="lazy">
+        <figcaption>バードシードクッキー</figcaption>
+      </figure>
+    </div>
+    <div class="menu-grid fade-in">
+      <div class="menu-item">
+        <span class="name">ブレンドコーヒー<span class="desc">自家焙煎豆使用</span></span>
+        <span class="price">¥550</span>
+      </div>
+      <div class="menu-item">
+        <span class="name">インコラテ<span class="desc">羽をイメージしたラテアート</span></span>
+        <span class="price">¥680</span>
+      </div>
+      <div class="menu-item">
+        <span class="name">季節のフルーツソーダ<span class="desc">日替わりフレーバー</span></span>
+        <span class="price">¥620</span>
+      </div>
+      <div class="menu-item">
+        <span class="name">バードシードクッキー<span class="desc">見た目もかわいい焼き菓子</span></span>
+        <span class="price">¥480</span>
+      </div>
+      <div class="menu-item">
+        <span class="name">グリーンティーロール<span class="desc">抹茶とクリームのロールケーキ</span></span>
+        <span class="price">¥580</span>
+      </div>
+      <div class="menu-item">
+        <span class="name">バードシード小皿<span class="desc">インコへのおすそ分け用（無理強い厳禁）</span></span>
+        <span class="price">¥300</span>
+      </div>
+    </div>
+    <p class="menu-tabs-note">※ アレルギーをお持ちの方は事前にスタッフまでお申し付けください。バードシードは人の食事とは別皿でご提供します。</p>
+  </div>
+</section>
+
+<section class="guide-section" id="guide">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">GUIDELINES</span>
+      <h2>ご利用にあたってのお願い</h2>
+      <p>ここは公園にすむ野生のインコたちの生活圏でもあります。無理のない距離感でお付き合いください。</p>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-item fade-in">
+        <div class="num">1</div>
+        <strong>追いかけない・捕まえない</strong>
+        <p>野生の鳥のため、無理に近づいたり捕まえようとしたりしないでください。</p>
+      </div>
+      <div class="guide-item fade-in">
+        <div class="num">2</div>
+        <strong>フラッシュ撮影禁止</strong>
+        <p>フラッシュや大きな音は鳥が驚いて逃げてしまう原因になります。</p>
+      </div>
+      <div class="guide-item fade-in">
+        <div class="num">3</div>
+        <strong>お食事は目を離さずに</strong>
+        <p>屋外の性質上、目を離した隙に食べ物を狙われることがあります。</p>
+      </div>
+      <div class="guide-item fade-in">
+        <div class="num">4</div>
+        <strong>人の食べ物は与えない</strong>
+        <p>与えてよいのは指定のバードシードのみ。人の食事は与えないでください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="access">
+  <div class="container">
+    <div class="section-head fade-in">
+      <span class="eyebrow">ACCESS</span>
+      <h2>営業時間・アクセス</h2>
+      <p>屋外テラス営業のため、荒天時は臨時休業する場合があります。最新情報はSNSでご確認ください。</p>
+    </div>
+    <div class="access-wrap">
+      <div class="info-card fade-in">
+        <h3>営業案内</h3>
+        <div class="info-row"><span class="label">営業時間</span><span class="value">10:00 〜 16:30（日没時刻により変動）</span></div>
+        <div class="info-row"><span class="label">定休日</span><span class="value">毎週月曜日・雨天/荒天時・年末年始</span></div>
+        <div class="info-row"><span class="label">住所</span><span class="value">〒142-0061　東京都品川区小山台2-6-11<br>林試の森公園 内</span></div>
+        <div class="info-row"><span class="label">アクセス</span><span class="value">東急目黒線「武蔵小山」駅より徒歩約10分</span></div>
+        <div class="info-row"><span class="label">電話番号</span><span class="value">00-0000-0000</span></div>
+        <div class="info-row"><span class="label">予約</span><span class="value">当日席のみ／お電話でも承ります</span></div>
+      </div>
+      <div class="map-box fade-in">
+        <iframe
+          title="林試の森公園の地図"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=139.6952%2C35.6208%2C139.7102%2C35.6298&layer=mapnik&marker=35.6253%2C139.7027"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-note">
+          〒142-0061 東京都品川区小山台2-6-11「林試の森公園」内 ／ 東急目黒線「武蔵小山」駅 徒歩約10分
+          &nbsp;·&nbsp;<a href="https://www.google.com/maps/search/?api=1&query=%E6%9E%97%E8%A9%A6%E3%81%AE%E6%A3%AE%E5%85%AC%E5%9C%92" target="_blank" rel="noopener">Google マップで開く ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">ワカケホンセイインコカフェ</div>
+      <p style="font-size:0.85rem;">林試の森公園の中にある、小さなオープンエアカフェ。</p>
+    </div>
+    <div class="footer-sns">
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="X">X</a>
+      <a href="#" aria-label="LINE">LN</a>
+    </div>
+  </div>
+  <p class="photo-credits">
+    写真（すべて Wikimedia Commons より）—
+    インコ: 「The Rose Ringed Parakeet in flight」by Prasan Shrestha (CC BY-SA 4.0) /
+    「A Parakeet Portrait」by Vinoth Chandar (CC BY 2.0) /
+    「Male Rose Ringed Parakeet」by Varun Omanakuttan (CC BY-SA 4.0) /
+    「Psittacula krameri -Karnataka」by Shivanayak (CC BY-SA 2.5) /
+    「Adult Rose-ringed Parakeet」by Akash Satpathy (CC BY-SA 4.0)。
+    フード: 「Latte at firefly coffee house」by Sajith T S (CC BY-SA 2.0) /
+    「Fresh baked cookies」by Matt Sibley (CC BY-SA 4.0) /
+    「Matcha rollcake - Ikigai Coffee」by Andy Li (CC0)。
+    公園風景: 「Yoyogi park - various views」by Nesnad (CC BY 4.0) /
+    「Mainstreet Yoyogipark」by Shinjiro (CC BY 3.0) / 「2018-09-23 trees in Shinjuku Gyo-en」by Sergey Galyonkin (CC BY-SA 2.0) /
+    「Canopy of trees at Meiji Shrine」by Grendelkhan (CC BY-SA 4.0) / 「Autumn Trees in the Dusk」by Yoshikazu TAKADA (CC BY 2.0) /
+    「August 2007, Shinjuku Gyoen」by Syced (CC0)。
+  </p>
+  <div class="footer-bottom">&copy; 2026 ワカケホンセイインコカフェ. All rights reserved.</div>
+  <p class="site-disclaimer">
+    このサイトはWeb制作の練習用に作られた架空のサンプルです。「ワカケホンセイインコカフェ」というお店は実在せず、店名・営業時間・メニュー・料金・電話番号などはすべて架空の内容です。実際に来店・ご予約はできません。
+  </p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function(){
+    document.getElementById('navList').classList.toggle('open');
+  });
+  document.querySelectorAll('#navList a').forEach(function(a){
+    a.addEventListener('click', function(){
+      document.getElementById('navList').classList.remove('open');
+    });
+  });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.fade-in').forEach(function(el){observer.observe(el);});
+
+  // Hero slideshow — crossfade through the parakeet photos
+  (function(){
+    var slides = document.querySelectorAll('.hero-slide');
+    if(slides.length < 2) return;
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var i = 0;
+    setInterval(function(){
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 4500);
+  })();
+</script>
+
+</body>
+</html>

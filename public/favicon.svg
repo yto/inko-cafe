@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ワカケホンセイインコカフェ">
+  <rect width="64" height="64" rx="15" fill="#1f5c3f"/>
+  <!-- parakeet head facing right -->
+  <path d="M19 46c-4-13 2-27 18-27 10 0 16 8 15 17-1 8-8 14-17 14-7 0-13-2-16-4z" fill="#46ad6e"/>
+  <!-- cheek highlight -->
+  <path d="M37 23c8 0 13 6 12 13-1 5-6 9-12 9-6 0-11-5-11-11 0-6 5-11 11-11z" fill="#66cf90"/>
+  <!-- rose-ring collar -->
+  <path d="M27 42c6 3 13 3 19-1" fill="none" stroke="#1f5c3f" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- eye -->
+  <circle cx="42" cy="27.5" r="3.6" fill="#fbf6ea"/>
+  <circle cx="43" cy="27.5" r="1.8" fill="#14271b"/>
+  <!-- beak -->
+  <path d="M49 27l13-3-9 12z" fill="#e2604a"/>
+</svg>
