@@ -25,7 +25,7 @@
 public/
   index.html      本体
   favicon.svg
-  images/         写真11点
+  images/         写真14点
 ```
 
 ## 手元で見る
